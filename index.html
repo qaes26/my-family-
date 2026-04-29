@@ -1,0 +1,763 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>لأمي رغدة وأبي طلال ❤️</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                        serif: ['Amiri', 'serif'],
+                    },
+                    colors: {
+                        parental: {
+                            100: '#fdf8f5',
+                            200: '#faecd9',
+                            300: '#f5d6b3',
+                            400: '#efb880',
+                            500: '#e79445',
+                            600: '#dd731c',
+                            700: '#b85a14',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* Phone Container - Ultra Pro Design */
+        #phone {
+            width: 390px;
+            height: 844px;
+            max-width: 100vw;
+            max-height: 100vh;
+            background-color: #000;
+            border-radius: 55px;
+            position: relative;
+            box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.5), inset 0 0 0 4px #444, inset 0 0 0 12px #0a0a0a;
+            overflow: hidden;
+            border: 14px solid #1a1a1a;
+        }
+
+        @media (max-width: 420px) {
+            #phone {
+                border-radius: 0;
+                box-shadow: none;
+                width: 100vw;
+                height: 100vh;
+                border: none;
+            }
+        }
+
+        /* Dynamic Island / Notch */
+        .notch {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 34px;
+            background-color: #000;
+            border-radius: 20px;
+            z-index: 100;
+            box-shadow: inset 0 0 5px rgba(255,255,255,0.1);
+        }
+
+        /* Wallpaper */
+        .wallpaper {
+            position: absolute;
+            inset: 0;
+            background-image: url('1000221871.webp'); /* صورتك المرفقة */
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        .wallpaper-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+            transition: all 0.5s ease;
+        }
+
+        .wallpaper-blur {
+            filter: blur(12px);
+            transform: scale(1.05); /* يمنع ظهور الحواف البيضاء عند التغبيش */
+        }
+
+        /* Screens */
+        .screen {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.5s ease;
+        }
+
+        /* Modern Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        /* App Icons - iOS Squircle Style */
+        .app-icon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .app-icon {
+            width: 62px;
+            height: 62px;
+            border-radius: 18px; /* Squircle approximation */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255,255,255,0.4);
+            transform: scale(1);
+            transition: transform 0.1s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-icon-container:active .app-icon {
+            transform: scale(0.9);
+        }
+
+        /* Adding a subtle gloss effect to icons */
+        .app-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%);
+            border-radius: 18px 18px 0 0;
+            pointer-events: none;
+        }
+
+        /* Apps Screen View Container */
+        #app-view {
+            position: absolute;
+            inset: 0;
+            background: #f2f2f7;
+            z-index: 60;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        #app-view.active {
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 5px; }
+
+        /* Floating Hearts Animation */
+        .heart {
+            position: absolute;
+            bottom: -20px;
+            font-size: 24px;
+            color: #dd731c;
+            animation: floatUp 5s ease-in infinite;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-800px) scale(1.5) rotate(360deg); opacity: 0; }
+        }
+
+        /* Swipe Up Hint Animation */
+        @keyframes bounce-up {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-bounce-up {
+            animation: bounce-up 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Phone Container -->
+    <div id="phone">
+        <!-- Hardware Notch -->
+        <div class="notch"></div>
+
+        <!-- Shared Wallpaper -->
+        <div id="main-wallpaper" class="wallpaper">
+            <div class="wallpaper-overlay" id="wallpaper-overlay"></div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="absolute top-0 inset-x-0 h-14 flex justify-between items-center px-8 text-white text-sm font-semibold z-50 pointer-events-none drop-shadow-md">
+            <span id="status-time">12:00</span>
+            <div class="flex items-center gap-2 text-xs">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-full text-base"></i>
+            </div>
+        </div>
+
+        <!-- ================= LOCK SCREEN ================= -->
+        <div id="lock-screen" class="screen pt-28 pb-10 px-6 flex flex-col justify-between text-white">
+            <div class="flex flex-col items-center drop-shadow-lg">
+                <i class="fa-solid fa-lock text-xl mb-3 opacity-90"></i>
+                <h2 id="lock-date" class="text-lg font-medium opacity-90">الإثنين، 1 يناير</h2>
+                <h1 id="lock-time" class="text-7xl font-bold tracking-wider mt-1 drop-shadow-2xl font-sans" style="font-size: 5rem;">12:00</h1>
+            </div>
+
+            <div class="flex flex-col items-center gap-4 w-full">
+                <!-- Notifications Widget -->
+                <div class="glass w-full rounded-3xl p-4 flex items-center gap-4 shadow-xl">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-parental-400 to-parental-600 flex items-center justify-center text-white text-xl shadow-inner">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base">تاج راسي</h3>
+                        <p class="text-sm opacity-90 font-medium">أبي طلال وأمي رغدة، الله يحفظكم لي.</p>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex flex-col items-center animate-bounce-up cursor-pointer" onclick="unlockPhone()">
+                    <span class="text-xs tracking-widest font-semibold mb-2 opacity-80">اسحب للأعلى للفتح</span>
+                    <div class="w-32 h-1.5 bg-white rounded-full opacity-60"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= HOME SCREEN ================= -->
+        <div id="home-screen" class="screen pt-24 px-6 hidden pointer-events-none opacity-0">
+            
+            <!-- Welcome Widget -->
+            <div class="glass rounded-[2rem] p-6 mb-8 text-white shadow-xl pointer-events-auto text-center border-t border-white/40">
+                <h3 class="font-bold text-2xl mb-2 drop-shadow-md text-parental-100">أبي طلال ❤️ أمي رغدة</h3>
+                <p class="text-sm opacity-95 leading-relaxed drop-shadow-sm font-medium">
+                    أنتم عكازي حين أتعب، ونوري حين أظلم. رضاكم هو بابي للجنة، وابتسامتكم هي أعظم إنجازاتي.
+                </p>
+            </div>
+
+            <!-- App Grid -->
+            <div class="grid grid-cols-4 gap-y-8 gap-x-4 pointer-events-auto justify-items-center px-1">
+                
+                <!-- Messages App -->
+                <div class="app-icon-container" onclick="openApp('messages')">
+                    <div class="app-icon bg-gradient-to-b from-[#34d399] to-[#059669]">
+                        <i class="fa-solid fa-message text-white drop-shadow-md"></i>
+                    </div>
+                    <span class="text-white text-[11px] font-semibold drop-shadow-md">رسائلنا</span>
+                </div>
+
+                <!-- Gallery App (Like iOS Photos) -->
+                <div class="app-icon-container" onclick="openApp('gallery')">
+                    <div class="app-icon bg-white flex flex-wrap p-2 gap-[2px]">
+                        <!-- Creating a simplified colorful flower/grid look -->
+                        <div class="w-[45%] h-[45%] bg-[#ff2a6d] rounded-tl-lg rounded-br-sm"></div>
+                        <div class="w-[45%] h-[45%] bg-[#05d5ff] rounded-tr-lg rounded-bl-sm"></div>
+                        <div class="w-[45%] h-[45%] bg-[#ffb300] rounded-bl-lg rounded-tr-sm"></div>
+                        <div class="w-[45%] h-[45%] bg-[#00e676] rounded-br-lg rounded-tl-sm"></div>
+                    </div>
+                    <span class="text-white text-[11px] font-semibold drop-shadow-md">أدعية لكم</span>
+                </div>
+
+                <!-- Notes App -->
+                <div class="app-icon-container" onclick="openApp('notes')">
+                    <div class="app-icon bg-gradient-to-b from-[#fcd34d] to-[#f59e0b] relative">
+                        <div class="absolute top-0 w-full h-4 bg-white/40 border-b border-black/10"></div>
+                        <i class="fa-solid fa-pen text-[#78350f] text-2xl drop-shadow-sm mt-3"></i>
+                    </div>
+                    <span class="text-white text-[11px] font-semibold drop-shadow-md">كلمات من القلب</span>
+                </div>
+
+                <!-- Memories App -->
+                <div class="app-icon-container" onclick="openApp('memories')">
+                    <div class="app-icon bg-gradient-to-b from-[#f43f5e] to-[#be123c]">
+                        <i class="fa-solid fa-heart text-white drop-shadow-md"></i>
+                    </div>
+                    <span class="text-white text-[11px] font-semibold drop-shadow-md">ذكريات</span>
+                </div>
+
+                <!-- Timer App (Blessings) -->
+                <div class="app-icon-container" onclick="openApp('timer')">
+                    <div class="app-icon bg-gradient-to-b from-[#1e1b4b] to-[#312e81] border border-indigo-400/30">
+                        <i class="fa-solid fa-hourglass-half text-[#818cf8] drop-shadow-[0_0_8px_rgba(129,140,248,0.8)]"></i>
+                    </div>
+                    <span class="text-white text-[11px] font-semibold drop-shadow-md">عداد النعم</span>
+                </div>
+
+            </div>
+
+            <!-- Footer / Dock -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 w-[90%] glass rounded-[2rem] p-4 flex justify-around pointer-events-auto shadow-2xl border-t border-white/30 bg-white/20">
+                <div class="w-14 h-14 rounded-[16px] bg-gradient-to-b from-[#4ade80] to-[#16a34a] flex items-center justify-center text-white text-2xl shadow-lg">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <div class="w-14 h-14 rounded-[16px] bg-gradient-to-b from-[#60a5fa] to-[#2563eb] flex items-center justify-center text-white text-2xl shadow-lg">
+                    <i class="fa-solid fa-compass"></i>
+                </div>
+                <div class="w-14 h-14 rounded-[16px] bg-gradient-to-b from-[#a8a29e] to-[#57534e] flex items-center justify-center text-white text-2xl shadow-lg">
+                    <i class="fa-solid fa-camera"></i>
+                </div>
+                <div class="w-14 h-14 rounded-[16px] bg-gradient-to-b from-[#f87171] to-[#dc2626] flex items-center justify-center text-white text-2xl shadow-lg">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+            </div>
+            
+            <!-- Signature -->
+            <div class="absolute bottom-2 w-full text-center pointer-events-auto z-50">
+                <p class="text-white/80 text-[10px] font-bold tracking-wide drop-shadow-md">من إعداد قيس جازي</p>
+            </div>
+        </div>
+
+        <!-- ================= APPS VIEW ================= -->
+        <div id="app-view" class="bg-[#f2f2f7] rounded-[55px] overflow-hidden shadow-2xl">
+            <!-- App Header -->
+            <div class="h-24 pt-12 px-6 flex justify-between items-center bg-white/90 border-b border-gray-200 z-10 sticky top-0 backdrop-blur-xl shadow-sm">
+                <button onclick="closeApp()" class="text-parental-600 text-xl w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition active:scale-90">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <h2 id="app-title" class="font-bold text-lg text-gray-800">التطبيق</h2>
+                <div class="w-10"></div> <!-- Spacer for center alignment -->
+            </div>
+
+            <!-- App Content Area -->
+            <div id="app-content" class="flex-1 overflow-y-auto relative pb-12 h-full">
+                <!-- App Contents Injected via JS -->
+            </div>
+        </div>
+
+        <!-- ================= SURPRISE POPUP ================= -->
+        <div id="surprise-popup" class="absolute inset-0 z-[100] bg-black/50 backdrop-blur-md hidden flex-col items-center justify-center opacity-0 transition-opacity duration-400">
+            <div class="bg-white w-[85%] rounded-[2rem] p-8 text-center transform scale-95 transition-transform duration-400 shadow-2xl border border-white/50" id="popup-card">
+                <div class="w-20 h-20 bg-gradient-to-br from-parental-100 to-parental-200 rounded-full flex items-center justify-center text-4xl text-parental-600 mx-auto mb-5 shadow-inner border border-parental-300">
+                    <i class="fa-solid fa-hands-praying animate-pulse"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">أمي رغدة وأبي طلال</h2>
+                <p class="text-gray-600 mb-6 text-base leading-relaxed font-medium">
+                    اللهم إني أستودعك قلبيهما، وصحتهما، وعافيتهما. اللهم اجعلني ابناً باراً يسعى لرضاكما ما حييت. أحبكم أضعاف ما تتخيلون.
+                </p>
+                <button onclick="closePopup()" class="w-full py-3.5 bg-gradient-to-r from-parental-500 to-parental-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-parental-500/40 transition active:scale-95">
+                    آمين يا رب
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Javascript Logic -->
+    <script>
+        // State
+        let isUnlocked = false;
+        let surpriseTriggered = false;
+        const phone = document.getElementById('phone');
+        const lockScreen = document.getElementById('lock-screen');
+        const homeScreen = document.getElementById('home-screen');
+        const wallpaperOverlay = document.getElementById('wallpaper-overlay');
+        const appView = document.getElementById('app-view');
+        const appTitle = document.getElementById('app-title');
+        const appContent = document.getElementById('app-content');
+        let heartInterval;
+        let timerInterval;
+
+        // Clock Update
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            
+            hours = hours % 12;
+            hours = hours ? hours : 12; 
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            
+            const timeStr = hours + ':' + minutes;
+            
+            document.getElementById('status-time').innerText = timeStr;
+            document.getElementById('lock-time').innerText = timeStr;
+
+            const options = { weekday: 'long', month: 'long', day: 'numeric' };
+            document.getElementById('lock-date').innerText = now.toLocaleDateString('ar-EG', options);
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Unlock Logic
+        function unlockPhone() {
+            if(isUnlocked) return;
+            isUnlocked = true;
+
+            // Animate lock screen away
+            lockScreen.style.transform = 'translateY(-100%)';
+            lockScreen.style.opacity = '0';
+            
+            // Show home screen
+            homeScreen.classList.remove('hidden');
+            setTimeout(() => {
+                homeScreen.style.pointerEvents = 'auto';
+                homeScreen.style.opacity = '1';
+                wallpaperOverlay.classList.add('wallpaper-blur');
+                // Remove the gradient overlay completely to show your picture clearly but blurred
+                wallpaperOverlay.style.background = 'rgba(0,0,0,0.2)'; 
+            }, 100);
+
+            // Start floating hearts
+            startHearts();
+
+            // Trigger surprise popup
+            setTimeout(() => {
+                showSurprise();
+            }, 6000);
+        }
+
+        // Handle Swipe up via mouse/touch
+        let startY = 0;
+        lockScreen.addEventListener('touchstart', e => startY = e.touches[0].clientY);
+        lockScreen.addEventListener('touchend', e => {
+            let endY = e.changedTouches[0].clientY;
+            if(startY - endY > 50) unlockPhone();
+        });
+        
+        // App Contents (HTML Strings)
+        const appsData = {
+            messages: {
+                title: "رسائل الغلا",
+                html: `
+                    <div class="p-4 flex flex-col gap-4 font-sans bg-[#f2f2f7] min-h-full pb-20">
+                        <div class="text-center text-[10px] text-gray-400 font-bold mb-2">اليوم - 10:00 ص</div>
+                        
+                        <!-- Message from Qais -->
+                        <div class="flex justify-end gap-2 w-full">
+                            <div class="bg-gradient-to-bl from-[#25D366] to-[#128C7E] text-white p-3.5 rounded-2xl rounded-tr-sm text-sm shadow-sm max-w-[85%] leading-relaxed font-medium">
+                                أبي الغالي طلال، أمي الحبيبة رغدة.. منذ يوم 8/7/2005 وأنتم تزرعون فيّ الحب والخير. أنتم أعظم رزق من الله لي.
+                            </div>
+                        </div>
+
+                        <!-- Reply (Parents) -->
+                        <div class="flex gap-2 w-[85%] mt-2">
+                            <div class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden flex-shrink-0 flex items-center justify-center text-sm text-gray-500 shadow-inner border border-white">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div class="bg-white text-gray-800 p-3.5 rounded-2xl rounded-tl-sm text-sm shadow-sm leading-relaxed font-medium border border-gray-100">
+                                ربي يحميك يا قيس ويرضى عليك. أنت فرحة عمرنا وفخرنا الدائم.
+                            </div>
+                        </div>
+
+                        <!-- Message from Qais -->
+                        <div class="flex justify-end gap-2 w-full mt-2">
+                            <div class="bg-gradient-to-bl from-[#25D366] to-[#128C7E] text-white p-3.5 rounded-2xl rounded-tr-sm text-sm shadow-sm max-w-[85%] leading-relaxed font-medium">
+                                كل خطوة أخطوها هي ببركة دعواتكم. الله لا يحرمني منكم ويطول بأعماركم بصحة وعافية. ❤️
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            gallery: {
+                title: "أدعية لكم",
+                html: `
+                    <div class="p-4 grid grid-cols-1 gap-5 bg-white min-h-full">
+                        
+                        <div class="rounded-3xl overflow-hidden shadow-lg relative bg-gradient-to-br from-parental-100 to-[#fdf8f5] p-6 text-center border border-parental-200">
+                            <div class="w-14 h-14 bg-parental-500 text-white rounded-full flex items-center justify-center text-2xl mx-auto mb-4 shadow-md">
+                                <i class="fa-solid fa-hands-praying"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg mb-2">لأبي طلال</h3>
+                            <p class="font-medium text-gray-600 text-sm leading-relaxed">اللهم ارزق أبي الصحة والسعادة، واجعل التوفيق حليفه، وبارك في عمره وعمله.</p>
+                        </div>
+
+                        <div class="rounded-3xl overflow-hidden shadow-lg relative bg-gradient-to-br from-pink-50 to-rose-50 p-6 text-center border border-pink-200">
+                            <div class="w-14 h-14 bg-rose-500 text-white rounded-full flex items-center justify-center text-2xl mx-auto mb-4 shadow-md">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg mb-2">لأمي رغدة</h3>
+                            <p class="font-medium text-gray-600 text-sm leading-relaxed">اللهم حرّم وجه أمي على النار، وارزقها الجنة بغير حساب، وأسعد قلبها دائماً.</p>
+                        </div>
+
+                        <div class="rounded-3xl overflow-hidden shadow-lg relative bg-gradient-to-br from-blue-50 to-indigo-50 p-6 text-center border border-blue-200 mb-10">
+                            <div class="w-14 h-14 bg-indigo-500 text-white rounded-full flex items-center justify-center text-2xl mx-auto mb-4 shadow-md">
+                                <i class="fa-solid fa-house-chimney-heart"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg mb-2">لبيتنا</h3>
+                            <p class="font-medium text-gray-600 text-sm leading-relaxed">اللهم احفظ بيتنا عامراً بوجود طلال ورغدة، وأدم علينا نعمة الدفء العائلي.</p>
+                        </div>
+                    </div>
+                `
+            },
+            notes: {
+                title: "من القلب",
+                html: `
+                    <div class="p-6 bg-[#fdfbf7] min-h-full font-serif relative" style="background-image: linear-gradient(#e5e7eb 1px, transparent 1px); background-size: 100% 2.5rem; line-height: 2.5rem; padding-top: 2rem;">
+                        <h1 class="text-2xl font-bold text-gray-800 mb-4 text-center bg-[#fdfbf7] inline-block px-4">إلى أعظم أم وأب</h1>
+                        
+                        <p class="text-gray-800 text-base font-medium mt-2">
+                            أمي الحبيبة رغدة، أبي الغالي طلال..
+                        </p>
+                        <p class="text-gray-700 text-base font-medium">
+                            أكتب لكم هذه الكلمات من أعماق قلبي. مهما كبرت، سأبقى طفلكم الذي يحتاج إلى دعواتكم ونصحكم. أنتم مدرستي الأولى، وملاذي الآمن من كل صراعات الحياة.
+                        </p>
+                        <p class="text-gray-700 text-base font-medium mt-2">
+                            أبي طلال، من عرق جبينك وتعبك بنيت لنا حياة كريمة.
+                            أمي رغدة، من سهر لياليك وحنانك زرعتِ فينا الطمأنينة.
+                        </p>
+                        <p class="text-gray-700 text-base font-medium mt-2">
+                            اللهم إني أشهدك أني راضٍ عنهما، فارضَ عنهما وارحمهما كما ربياني صغيراً.
+                        </p>
+                        <p class="text-parental-700 text-xl mt-6 font-bold text-left italic">
+                            ابنكم البار،<br>قيس
+                        </p>
+                    </div>
+                `
+            },
+            memories: {
+                title: "ذكريات من ذهب",
+                html: `
+                    <div class="p-6 bg-white min-h-full pb-20">
+                        <div class="relative border-r-2 border-parental-300 mr-2 pr-6 py-2 flex flex-col gap-10 text-right">
+                            
+                            <!-- Timeline Item 1 -->
+                            <div class="relative">
+                                <div class="absolute -right-[31px] top-1.5 bg-parental-600 w-4 h-4 rounded-full border-2 border-white shadow-md"></div>
+                                <h3 class="text-lg font-bold text-gray-800">8 يوليو 2005</h3>
+                                <p class="text-sm text-gray-600 mt-1 font-medium leading-relaxed">يوم أن أبصرت النور بين يديكم. بداية أعظم قصة حب بين ابن ووالديه (طلال ورغدة).</p>
+                            </div>
+
+                            <!-- Timeline Item 2 -->
+                            <div class="relative">
+                                <div class="absolute -right-[31px] top-1.5 bg-parental-500 w-4 h-4 rounded-full border-2 border-white shadow-md"></div>
+                                <h3 class="text-lg font-bold text-gray-800">سند لا يميل</h3>
+                                <p class="text-sm text-gray-600 mt-1 font-medium leading-relaxed">كل عثرة في حياتي، كنتم أنتم من يمسك بيدي لأقف من جديد. حنان أمي وقوة أبي.</p>
+                            </div>
+
+                            <!-- Timeline Item 3 -->
+                            <div class="relative">
+                                <div class="absolute -right-[31px] top-1.5 bg-parental-400 w-4 h-4 rounded-full border-2 border-white shadow-md"></div>
+                                <h3 class="text-lg font-bold text-gray-800">أيامنا القادمة</h3>
+                                <p class="text-sm text-gray-600 mt-1 font-medium leading-relaxed">كل دعائي أن تملأ السعادة والصحة والبركة أيامكم القادمة، وأن أكون دائماً سبباً لفرحكم.</p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                `
+            },
+            timer: {
+                title: "عداد النعم",
+                html: `
+                    <div class="p-6 bg-gradient-to-br from-[#0f172a] to-[#1e1b4b] min-h-full flex flex-col items-center justify-start font-sans text-center relative overflow-hidden text-white pt-12 pb-20">
+                        
+                        <!-- Decoration -->
+                        <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
+                            <div class="w-64 h-64 bg-indigo-500 rounded-full blur-3xl absolute -top-10 -right-10"></div>
+                            <div class="w-64 h-64 bg-purple-500 rounded-full blur-3xl absolute bottom-10 -left-10"></div>
+                        </div>
+
+                        <div class="w-24 h-24 rounded-[2rem] bg-white/10 backdrop-blur-md flex items-center justify-center text-4xl text-indigo-300 mb-6 shadow-2xl relative z-10 border border-white/20">
+                            <i class="fa-solid fa-hourglass-half animate-pulse"></i>
+                        </div>
+                        
+                        <h2 class="text-2xl font-bold mb-1 z-10">نعم الله عليّ بوجودكم</h2>
+                        <p class="text-indigo-300 font-medium mb-8 bg-indigo-900/50 px-4 py-1.5 rounded-full shadow-inner z-10 text-xs border border-indigo-500/30">منذ ولادتي: 8/7/2005</p>
+
+                        <!-- Main Timer Container -->
+                        <div class="w-full max-w-sm mb-8 z-10 space-y-3">
+                            
+                            <!-- Days Large Card -->
+                            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 flex flex-col items-center justify-center border border-white/10 shadow-lg w-full">
+                                <span class="text-5xl font-bold text-white drop-shadow-lg tracking-wider" id="timer-days">0</span>
+                                <span class="text-sm text-indigo-200 font-medium mt-1">يوم من نعمة الأبوين</span>
+                            </div>
+
+                            <!-- Grid for Hours, Mins, Secs -->
+                            <div class="grid grid-cols-3 gap-3 w-full">
+                                <div class="bg-white/5 backdrop-blur-md rounded-xl p-3 flex flex-col items-center border border-white/10">
+                                    <span class="text-2xl font-bold text-indigo-100" id="timer-hours">0</span>
+                                    <span class="text-[10px] text-indigo-300 font-bold">ساعة</span>
+                                </div>
+                                <div class="bg-white/5 backdrop-blur-md rounded-xl p-3 flex flex-col items-center border border-white/10">
+                                    <span class="text-2xl font-bold text-indigo-100" id="timer-minutes">0</span>
+                                    <span class="text-[10px] text-indigo-300 font-bold">دقيقة</span>
+                                </div>
+                                <div class="bg-white/5 backdrop-blur-md rounded-xl p-3 flex flex-col items-center border border-white/10 relative overflow-hidden">
+                                    <span class="text-2xl font-bold text-indigo-100" id="timer-seconds">0</span>
+                                    <span class="text-[10px] text-indigo-300 font-bold">ثانية</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-indigo-900/40 backdrop-blur-sm rounded-2xl p-4 shadow-lg z-10 border border-indigo-500/20 w-full max-w-sm">
+                            <p class="text-indigo-100 text-sm font-medium leading-relaxed">
+                                يا طلال ويا رغدة، عمري الحقيقي يُقاس باللحظات التي أراكم فيها بخير. أدامكم الله تاجاً فوق رأسي.
+                            </p>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        const birthDate = new Date('2005-07-08T00:00:00').getTime();
+
+        function updateBlessingTimer() {
+            const daysEl = document.getElementById('timer-days');
+            if (!daysEl) return;
+
+            const now = new Date().getTime();
+            const difference = now - birthDate;
+
+            if (difference < 0) return;
+
+            // حساب دقيق للأيام، الساعات، الدقائق، الثواني
+            const totalDays = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            // إضافة الفواصل للأرقام الكبيرة (مثال: 7,000 بدلاً من 7000)
+            daysEl.innerText = totalDays.toLocaleString('en-US'); 
+            
+            // تنسيق الأرقام لتكون من خانتين (09, 08)
+            document.getElementById('timer-hours').innerText = hours.toString().padStart(2, '0');
+            document.getElementById('timer-minutes').innerText = minutes.toString().padStart(2, '0');
+            document.getElementById('timer-seconds').innerText = seconds.toString().padStart(2, '0');
+        }
+
+        function openApp(appId) {
+            const data = appsData[appId];
+            if(!data) return;
+
+            appTitle.innerText = data.title;
+            appContent.innerHTML = data.html;
+            
+            // Background overrides based on app
+            if(appId === 'notes') {
+                appView.className = 'bg-[#fdfbf7] rounded-[55px] overflow-hidden shadow-2xl active';
+            } else if (appId === 'gallery') {
+                appView.className = 'bg-white rounded-[55px] overflow-hidden shadow-2xl active';
+            } else if (appId === 'timer') {
+                appView.className = 'bg-[#0f172a] rounded-[55px] overflow-hidden shadow-2xl active';
+                // Start live timer immediately
+                updateBlessingTimer();
+                clearInterval(timerInterval);
+                timerInterval = setInterval(updateBlessingTimer, 1000);
+            } else {
+                appView.className = 'bg-[#f2f2f7] rounded-[55px] overflow-hidden shadow-2xl active';
+            }
+        }
+
+        function closeApp() {
+            appView.classList.remove('active');
+            clearInterval(timerInterval); // Stop timer when closed to save resources
+            setTimeout(() => {
+                appContent.innerHTML = '';
+            }, 500);
+        }
+
+        function startHearts() {
+            if(heartInterval) return;
+            const container = document.getElementById('phone');
+            const icons = ['fa-heart', 'fa-star', 'fa-hands-praying', 'fa-crown'];
+            
+            heartInterval = setInterval(() => {
+                if(Math.random() > 0.6) return;
+
+                const heart = document.createElement('i');
+                const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+                heart.className = `fa-solid ${randomIcon} heart`;
+                
+                const size = 15 + Math.random() * 20;
+                const left = 5 + Math.random() * 90;
+                const duration = 4 + Math.random() * 3;
+
+                heart.style.fontSize = `${size}px`;
+                heart.style.left = `${left}%`;
+                heart.style.animationDuration = `${duration}s`;
+                
+                // Gold / Amber / White colors for parents theme
+                const colors = ['#f59e0b', '#fbbf24', '#fcd34d', '#ffffff', '#eab308'];
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                if(heart.style.color === '#ffffff') heart.style.textShadow = '0 0 8px rgba(0,0,0,0.3)';
+
+                container.appendChild(heart);
+
+                setTimeout(() => {
+                    if(heart.parentNode) heart.parentNode.removeChild(heart);
+                }, duration * 1000);
+
+            }, 400);
+        }
+
+        function showSurprise() {
+            if(surpriseTriggered) return;
+            surpriseTriggered = true;
+            
+            const popup = document.getElementById('surprise-popup');
+            const card = document.getElementById('popup-card');
+            
+            popup.classList.remove('hidden');
+            popup.classList.add('flex');
+            
+            void popup.offsetWidth;
+            
+            popup.classList.remove('opacity-0');
+            popup.classList.add('opacity-100');
+            card.classList.remove('scale-95');
+            card.classList.add('scale-100');
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('surprise-popup');
+            const card = document.getElementById('popup-card');
+            
+            popup.classList.remove('opacity-100');
+            popup.classList.add('opacity-0');
+            card.classList.remove('scale-100');
+            card.classList.add('scale-95');
+            
+            setTimeout(() => {
+                popup.classList.add('hidden');
+                popup.classList.remove('flex');
+            }, 400);
+        }
+
+    </script>
+</body>
+</html>
+
+
+```
